@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # apps
-    'restframework',
+    'rest_framework',
     'rest_framework_simplejwt',
     'api.apps.ApiConfig'
 ]
