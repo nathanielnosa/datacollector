@@ -111,6 +111,25 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# simple jwt conf
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Access token valid for 60 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Refresh token valid for 7 days
+    'ROTATE_REFRESH_TOKENS': True,  # Generate new refresh token on usage
+    'BLACKLIST_AFTER_ROTATION': True,  # Blacklist old refresh tokens after rotation
+    'ALGORITHM': 'HS256',  # Default hashing algorithm
+    # 'SIGNING_KEY': SECRET_KEY,  # Use your Django secret key
+    'AUTH_HEADER_TYPES': ('Bearer',),  # Token prefix (e.g., 'Bearer <token>')
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
