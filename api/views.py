@@ -35,3 +35,17 @@ class DataFieldView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error":str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class UpdateDataFieldView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+    def put(self,request,pk):
+        try:
+            entry = DataField.objects.get(pk=pk)
+        except DataField.DoesNotExist:
+            return Response({"error":"Data with id not found"}, status=status.HTTP_404_NOT_FOUND)
+        status = request.data.get('status')
+        if status not in ['Done', 'Not Done']:
+            return Response({"error":"Invalid status data"} ,status=status.HTTP_400_BAD_REQUEST)
+        entry.status = status
+        entry.save()
+        return Response({"message":"status updated successfully!"}, status=status.HTTP_200_OK)
