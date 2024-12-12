@@ -26,7 +26,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class DataFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = DataField
-        field = '__all__'
+        fields = '__all__'
         read_only_fields = ['user','status','created_at']
     def validate(self,value):
         if not value['location']:
